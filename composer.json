@@ -1,0 +1,34 @@
+{
+    "name": "porygon/user",
+    "alias": "",
+    "description": "一个用户信息管理的扩展",
+    "type": "library",
+    "keywords": [
+        "dcat-admin",
+        "extension"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "cyw",
+            "email": "1764887758@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "dcat/laravel-admin": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Porygon\\User\\": "src/"
+        }
+    },
+    "extra": {
+        "dcat-admin": "Porygon\\User\\ServiceProvider",
+        "laravel": {
+            "providers": [
+                "Porygon\\User\\ServiceProvider"
+            ]
+        }
+    }
+}
