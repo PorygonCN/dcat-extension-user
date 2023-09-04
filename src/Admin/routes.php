@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Porygon\User\Admin\Controllers\UserController;
 
-Route::group(["prefix" => "user", "as" => "user."], function () {
+Route::group(["prefix" => "user", "as" => "user.", "middleware" => "log"], function () {
     Route::resources([
         "users"       => UserController::class,          // 用户管理
     ]);

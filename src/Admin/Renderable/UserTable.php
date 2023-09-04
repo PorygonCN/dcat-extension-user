@@ -2,6 +2,7 @@
 
 namespace Porygon\User\Admin\Renderable;
 
+use Dcat\Admin\Admin;
 use Porygon\Organization\Models\Department;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Grid\LazyRenderable;

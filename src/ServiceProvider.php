@@ -39,16 +39,20 @@ class ServiceProvider extends BaseServiceProvider
     {
         parent::init();
 
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
-        $this->registerRoutes(__DIR__ . "/Admin/routes.php");
-        $this->loadTranslationsFrom(__DIR__ . "/../resources/lang", "p-user");
+        $this->loadRoutes();
 
+        $this->loadTranslationsFrom(__DIR__ . "/../resources/lang", "p-user");
         $this->publishes([__DIR__ . "/../resources/lang" => app()->langPath()], "porygon-user-lang");
 
         require __DIR__ . "/bootstrap.php";
     }
 
+    public function loadRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->registerRoutes(__DIR__ . "/Admin/routes.php");
+    }
     public function settingForm()
     {
         return new Setting($this);

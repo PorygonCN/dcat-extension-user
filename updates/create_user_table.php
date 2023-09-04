@@ -48,6 +48,7 @@ class CreateUserTable  extends Migration
             $table->dropColumn("username");
             $table->dropColumn("mobile");
             $table->dropColumn("change_password");
+            $table->dropColumn("department_id");
             $table->dropSoftDeletes();
             $table->unique("email");
         });
