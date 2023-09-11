@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateWechatAuthsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('wechat_auths', function (Blueprint $table) {
+        Schema::create('user_wechat_auths', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->comment("关联用户id")->nullable();
             $table->string("type")->comment("平台类型");
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wechat_auths');
+        Schema::dropIfExists('user_wechat_auths');
     }
 };
