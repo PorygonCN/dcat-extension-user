@@ -24,7 +24,7 @@ use Porygon\Base\Exceptions\MsgableException;
 use Porygon\Organization\Models\Department;
 use Porygon\User\Admin\Forms\UserImportForm;
 use Porygon\User\Admin\Repositories\User;
-use Porygon\User\Models\User as ModelsUser;
+use App\Models\User as ModelsUser;
 use Porygon\User\ServiceProvider;
 use Porygon\Xls\Driver\Xlswriter;
 

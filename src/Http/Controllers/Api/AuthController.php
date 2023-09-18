@@ -3,14 +3,8 @@
 namespace Porygon\User\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\WechatOauth;
 use Porygon\User\Services\WechatMiniAppService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use OpenApi\Attributes as OA;
 
 class AuthController extends Controller
 {
@@ -49,13 +43,20 @@ class AuthController extends Controller
         $userInfo = $requset->userInfo;
 
         $response = $this->service->code2session($code);
+        $userInfo = $this->service->decryptUserInfo($response["session_key"], $userInfo);
 
         $openid  = $response["openid"];
-        $unionid = $response["unionid"];
+        $unionid = $response["unionid"] ?? null;
         $user    = $this->service->getUser($openid, $unionid, $userInfo, "mini_app");
 
         $token = $user->createToken("mini_app");
-        return ["token" => $token->plainTextToken];
+        return success(["token" => $token->plainTextToken, "user" => [
+            "nickName"    => $user->name,
+            "avatarUrl"   => $user->profile_photo_path,
+            "gender"      => 0,
+            "phoneNumber" => null,
+            "new_user"    => (bool)$user->new_user,
+        ]]);
     }
 
 
@@ -82,6 +83,6 @@ class AuthController extends Controller
             "gender"      => 0,
             "phoneNumber" => null
         ];
-        return $info;
+        return success($info);
     }
 }

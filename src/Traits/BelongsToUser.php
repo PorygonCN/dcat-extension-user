@@ -2,7 +2,7 @@
 
 namespace Porygon\User\Traits;
 
-use Porygon\User\Models\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
 trait BelongsToUser

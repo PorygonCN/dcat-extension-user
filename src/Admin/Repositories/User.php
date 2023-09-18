@@ -2,7 +2,7 @@
 
 namespace Porygon\User\Admin\Repositories;
 
-use Porygon\User\Models\User as Model;
+use App\Models\User as Model;
 use Dcat\Admin\Repositories\EloquentRepository;
 
 class User extends EloquentRepository

@@ -14,7 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Porygon\User\Models\User;
+use App\Models\User;
 
 class ImportUserExcel implements ShouldQueue
 {

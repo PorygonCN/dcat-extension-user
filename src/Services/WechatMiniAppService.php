@@ -3,7 +3,7 @@
 namespace Porygon\User\Services;
 
 use Porygon\User\Models\WechatAuth;
-use Porygon\User\Models\User;
+use App\Models\User;
 use EasyWeChat\Kernel\HttpClient\Response;
 use EasyWeChat\MiniApp\Application;
 use Exception;
@@ -13,32 +13,41 @@ class WechatMiniAppService
 {
 
     public Application $app;
+    public $utils;
     public function __construct()
     {
         $this->app = app("easywechat.mini_app");
+        $this->utils = $this->app->getUtils();
     }
 
 
     /**
      * 通过code换取openid sessionKey unionid
      */
-    public function code2session($code): Response
+    public function code2session($code)
     {
-        $api      = $this->app->getClient();
-        $account  = $this->app->getAccount();
-        $response = $api->get("/sns/jscode2session", [
-            "appid"      => $account->getAppId(),
-            "secret"     => $account->getSecret(),
-            "js_code"    => $code,
-            "grant_type" => "authorization_code",
-        ]);
+        $response = $this->utils->codeToSession($code);
+        // $api      = $this->app->getClient();
+        // $account  = $this->app->getAccount();
+        // $response = $api->get("/sns/jscode2session", [
+        //     "appid"      => $account->getAppId(),
+        //     "secret"     => $account->getSecret(),
+        //     "js_code"    => $code,
+        //     "grant_type" => "authorization_code",
+        // ]);
         return $response;
+    }
+
+    public function decryptUserInfo($sessionKey, $userInfo)
+    {
+        $session = $this->utils->decryptSession($sessionKey, $userInfo["iv"], $userInfo["encryptedData"]);
+        return $session;
     }
 
     /**
      * 通过openid和unionid获取User 没有则根据userInfo创建
      */
-    public function getUser($openid, $unionid, $userInfo, $type): User
+    public function getUser($openid, $unionid, $userInfo, $type)
     {
         DB::beginTransaction();
         try {
@@ -76,6 +85,7 @@ class WechatMiniAppService
                         "name"               => $userInfo["nickName"],
                         "nickname"           => $userInfo["nickName"],
                     ]);
+                    $user->new_user = true;
                     try { // 尝试保存头像 可能没有
                         $user->profile_photo_path = $userInfo["avatarUrl"];
                         $user->save();

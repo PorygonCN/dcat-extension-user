@@ -2,8 +2,8 @@
 
 namespace Porygon\User\Models;
 
-use HasWechatAuth;
 use Porygon\Base\Models\User as BaseUser;
+use Porygon\User\Traits\HasWechatAuth;
 
 class User extends BaseUser
 {

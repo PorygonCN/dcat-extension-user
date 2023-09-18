@@ -2,9 +2,8 @@
 
 namespace Porygon\User\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Porygon\Base\Models\Model;
-use Porygon\Base\Models\User;
 
 class WechatAuth extends Model
 {
