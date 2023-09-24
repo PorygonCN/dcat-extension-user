@@ -78,6 +78,7 @@ class AuthController extends Controller
 
         // $info = $oauth->only("nickname", "avatar");
         $info = [
+            "id"          => $user->id,
             "nickName"    => $user->name,
             "avatarUrl"   => $user->profile_photo_path,
             "gender"      => 0,
