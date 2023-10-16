@@ -43,7 +43,7 @@ class AuthController extends Controller
         $userInfo = $requset->userInfo;
 
         $response = $this->service->code2session($code);
-        $userInfo = $this->service->decryptUserInfo($response["session_key"], $userInfo);
+        // $userInfo = $this->service->decryptUserInfo($response["session_key"], $userInfo);
 
         $openid  = $response["openid"];
         $unionid = $response["unionid"] ?? null;

@@ -86,11 +86,13 @@ class WechatMiniAppService
                         "nickname"           => $userInfo["nickName"],
                     ]);
                     $user->new_user = true;
-                    try { // 尝试保存头像 可能没有
+                }
+                try { // 尝试保存头像 可能没有
+                    if (!$user->profile_photo_path) {
                         $user->profile_photo_path = $userInfo["avatarUrl"];
                         $user->save();
-                    } catch (Exception $e) {
                     }
+                } catch (Exception $e) {
                 }
                 // 关联当前oauth
                 $user->wechat_auths()->save($oauth);
